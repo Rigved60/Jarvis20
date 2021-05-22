@@ -1,0 +1,9 @@
+import smtplib
+
+server = smtplib.SMTP('smtp.gmail.com',587)
+server.starttls()
+server.login('','') #what is your gmail ID and pascode?
+server.sendmail('', # from which account you want to send email
+                '', #to whom we you want to send mail
+                ''                           # type what you want to send
+                )
