@@ -1,9 +1,14 @@
 import smtplib
+A = input("from which account do you want to login?:- ")
+V = input("Enter your password: ")
+B = input("Enter the mail from which you want to send the mail?:- ")
+C = input("Enter whom you want to send the mail:- ")
+D = input("What messege do you want to send to "+C)
 
 server = smtplib.SMTP('smtp.gmail.com',587)
 server.starttls()
-server.login('','') #what is your gmail ID and pascode?
-server.sendmail('', # from which account you want to send email
-                '', #to whom we you want to send mail
-                ''                           # type what you want to send
+server.login(A,V) #what is your gmail ID and pascode?
+server.sendmail( B, # from which account you want to send email
+                 C, #to whom we you want to send mail
+                 D                           # type what you want to send
                 )
