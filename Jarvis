@@ -1,0 +1,743 @@
+import pyttsx3 as py
+import speech_recognition as sr
+import datetime
+now = datetime.datetime.now()
+import pyjokes
+import pywhatkit as kit
+import wikipedia
+import webbrowser
+import random
+from playsound import playsound
+# import subprocess as sub
+import time
+import tkinter as tk
+# import tkinter.messagebox
+# from tkinter import Label
+import pickle
+# from time import strftime
+score2 = 0
+def Hereitis():
+    E.say("Here it is: !")
+    E.runAndWait()
+
+fact = ["There are 70 species of pengin","Hot water will turn into ice faster than cold water.","The strongest muscel in human body is Tounge","Mantis shrimps can punch with the force of a bullet. .."]
+
+byes={"au revoir its bye in French",
+      "do svidaniya its bye in Russian",
+      "adiós its bye in Spanish",
+      "Zàijiàn its bye in Chineese"
+      "Zàijiàn its bye in Chineese",
+      "addio its bye in Italian",
+      "Sayōnara its bye in Japeneese",
+      "Tschüss its bye in German",
+      "alavida its bye in hindi"}
+
+
+facts = random.choice(fact)
+
+    
+E=py.init()
+
+M = ["What can you see in darkness","what starts with 1 and ends with none","which was the tallest mountain before mount Everest was discovered","what is green but when fallen turns yellow ?","I am a part of your home niether inside nor outside. Who am I ","which month has 28 days ? "]
+
+voices = E.getProperty('voices')
+E.setProperty('voice', voices[2].id)
+
+
+E.setProperty("RATE",200)
+
+E.say("I am your Jarvis! ")
+E.say("What can I do for you")
+E.runAndWait()
+
+
+
+
+# greets
+greets=["Hola! that's hello in Spanish!",
+        "Salut! that is hi in French",
+        "Anneyonghaseyo! that is hello in Korean",
+        "Hallo! that is hi in German!",
+        "Ciao! That's hi in Intalian!"]
+
+
+
+while True:
+    try:
+        #Take the user input to activate reception of Voice Commands
+        userInput=input("Press v to start and q to quit: ")
+        
+        if userInput=='v':
+            
+            #Take Voice commands from mic
+            r=sr.Recognizer()
+            with sr.Microphone() as source:
+                r.adjust_for_ambient_noise(source)
+                print("Speak: ")
+                print("Listening. . . . ")
+                audio=r.listen(source)
+            #Convert Voice Commands to Text
+            command=r.recognize_google(audio)
+            command = command.lower()
+            E.say("OK. .")
+            E.runAndWait()
+    
+    # feature "time"
+            if 'time' in command :
+               
+                E.say("The current time is: ")
+                E.runAndWait()
+                E.say(now.strftime("%H:%M:%S"))
+                print(now.strftime("%H:%M:%S"))
+                E.runAndWait()
+            
+        # feature "playing anything"
+            elif 'play' in command:
+                play = command.replace('play', '')
+                print("Playing " + play)
+                E.say("playing . ." + play)
+                E.runAndWait()
+                kit.playonyt(play)
+        # feature "opening google" 
+            elif 'google' in command :
+                E.say("opening Google")
+                E.runAndWait()
+                webbrowser.open("www.google.com/")
+            
+    # feature "opening youtube"
+            elif 'youtube' in command :
+               E.say("Opening Youtube")
+               E.runAndWait()
+               webbrowser.open("www.youtube.com/")
+       
+    # feature "opening team website"
+            elif 'team website' in command:
+                 E.say("Opening the team website for you!")
+                 print("Opening the team website for you!")
+                 E.say("Looks like its going well!")
+                 print("Looks like its going well!")
+                 E.runAndWait()
+                 webbrowser.open('https://sites.google.com/view/jarvis-tech-home/home')
+
+    
+    # feature "To-do list"
+            # elif 'list':
+                
+            #     todo=[]
+
+            #     while True:
+            #         to_do_list=input("Enter your task: ")
+            #         todo.append(to_do_list)
+            #         print("task added")
+            #         playmore=input("do you want to add more y/n").lower()
+            #         if playmore=="y":
+            #             print()
+            #         elif playmore=="n":
+            #             print("bye")
+            #             break
+            #         else:
+            #             print("command not found breaking")
+            #             break
+                    
+            #     print("your todo is: "+str(todo))
+
+    
+    # feature "alarm"
+        elif 'alarm' in command:
+                E.say("Type the time! ")
+                E.runAndWait()
+                Alarm =input("Enter the time:- ")
+                print("Alarm has been set for", Alarm)
+                E.say(Alarm)
+                E.runAndWait()
+        
+                while True:
+                    try:
+                        Time_Ac = datetime.datetime.now()
+                        now = Time_Ac.strftime("%H:%M")
+                    
+                        if now == Alarm:
+                            print()
+                            E.say("come on go to your work! ")
+                            E.runAndWait()
+                            playsound("C:\\Rigved\python\\Python sounds. JARVIS\\Alarm.mp3")
+    
+                #Statement to Handle errors while playing Alarm beep.
+                    except:
+                        pass
+                        
+    # feature "maths ChatBot"
+        elif 'mathematics' in command:
+            
+            print("Hello Everyone")
+            print("welcome to the mathematical chatbot")
+            print("you can do the following functions")
+            print("1. Addition, 2. subtraction, 3. multiplication, 4. division, 5. perimeter and 6.area")
+            
+            try:
+                r=sr.Recognizer()
+                with sr.Microphone() as source:
+                    r.adjust_for_ambient_noise(source)
+                    print("Speak")
+                    print("Listening. .")
+                    E.runAndWait()
+                    audio=r.listen(source)
+                ask=r.recognize_google(audio)
+                print("You said: "+ask)
+                E.say("you said: "+ask)
+                E.runAndWait()
+            
+                E.say("enter option number: ")
+                num1 = int(input("Enter Your First Number: "))
+                num2 = int(input("Enter Your Second Number: "))
+                
+                if ask =='1':
+                    print("Here is your sum to the question")
+                    print("The answer is: "+ str (num1+num2))
+                    
+                elif ask =='2':
+                    print("Here is your sum to the question")
+                    print("The answer is: "+str(num1-num2))
+                
+                elif ask =='3':
+                    print("Here is your product to the question")
+                    print("The answer is: "+str(num1*num2))
+                    
+                
+                elif ask == '4':
+                    print("Here is the quoteint to you answer")
+                    print("The answer is: "+ str(num1/num2))
+                
+                elif ask =='5': 
+                    sorr=input("select square or rectange: ").lower()                         
+                    if sorr == "square":
+                        
+                        a=(num1+num1)
+                        b=(num2+num2)
+                        print("the perimeter is"+str(a+b))
+                elif ask == "rectangle":
+                    a=(num1+num1)
+                    b=(num2+num2)
+                    print("the perimeter is"+str(a+b))
+                
+                
+         
+        
+                elif ask=="6":
+                    print("the area is"+str(num1*num2))
+            except:
+                pass
+
+        # feature "unwell"
+        elif 'unwell' in command :
+            E.say("Here are some clinics nearby:-")
+            E.runAndWait()
+            webbrowser.open("https://www.google.com/search?q=doctors+near+me&source=hp&ei=zSCeYM7LNt6H4-EPrpWv6Ak&iflsig=AINFCbYAAAAAYJ4u3b1m6yl5YZglXzNhCoeK2dJqyuZT&oq=doctors+&gs_lcp=Cgdnd3Mtd2l6EAEYADIICAAQsQMQyQMyBQgAEJIDMgUIABCxAzIFCC4QsQMyBQgAELEDMggIABCxAxCDATIFCAAQsQMyCAguEMcBEK8BMggIABCxAxCDATICCAA6CwguELEDEMcBEKMCOggILhCxAxCDAToCCC5QrgZYjh1gvC1oAHAAeACAAcQBiAGJC5IBAzAuOJgBAKABAaoBB2d3cy13aXo&sclient=gws-wiz")
+
+        
+        # feature "physician"
+        elif 'physician' in command:
+            E.say("Finding physicians nearby!")
+            E.runAndWait()
+            webbrowser.open("https://www.google.com/search?q=physician+near+me&source=hp&ei=zSWeYLnbMOvez7sPzquDoAU&iflsig=AINFCbYAAAAAYJ4z3UFbnwhwH1S2PB7uUkji0QVngyS6&oq=physicians+&gs_lcp=Cgdnd3Mtd2l6EAEYADIKCAAQsQMQyQMQCjIFCAAQkgMyBQgAEJIDMgIIADIHCAAQsQMQCjIECAAQCjICCAAyAggAMgIIADIHCAAQsQMQCjoICAAQsQMQgwE6CAguELEDEIMBOgUIABCxAzoICAAQsQMQyQM6BQguELEDUOIEWJMWYOsnaABwAHgAgAGvAYgBhg6SAQQwLjExmAEAoAEBqgEHZ3dzLXdpeg&sclient=gws-wiz")
+
+        # feature "joke"
+        elif 'joke' in command:
+            Hereitis()
+            E.runAndWait()
+            print(pyjokes.get_joke())
+            E.say(pyjokes.get_joke())
+            E.runAndWait()
+        
+        # feature "who is"
+          
+        elif 'who is' in command :
+                person = command.replace('who is', '')
+                info = wikipedia.summary(person, 1)
+                print(info)
+                E.say(info)
+                E.runAndWait()
+        # feature "byes"
+        
+        elif 'bye' in command:
+            bye = random.choice(byes)
+            E.say(bye)
+            print("Bye!")
+            E.runAndWait()
+        
+        # feature "what is"
+        elif 'what is' in command :
+            person = command.replace('what is', '')
+            info = wikipedia.summary(person, 1)
+            print(info)
+            E.say(info)
+            E.runAndWait()
+        
+        # feature "fact"
+        elif 'fact' in command:
+            Hereitis()
+            print(fact)
+            E.say(fact)
+            E.runAndWait()
+          
+            
+          
+        # feature "weather"
+        elif 'weather' in command:
+            print("Here is the weather sir")
+            E.say("Here is the weather sir")
+            E.runAndWait()                        
+            webbrowser.open("https://www.google.com/search?q=temperature&rlz=1C1CHZL_enIN903IN903&oq=tem&aqs=chrome.1.69i57j69i59l2j0i131i433j0i433j69i60l2j69i61.1845j0j7&sourceid=chrome&ie=UTF-8")
+
+        # feature "temp"
+        elif 'temprature' in command:
+            print("Here is temperature sir")
+            E.say("Here is temperature sir")
+            E.runAndWait()
+            webbrowser.open("https://www.google.com/search?q=temperature&rlz=1C1CHZL_enIN903IN903&oq=tem&aqs=chrome.1.69i57j69i59l2j0i131i433j0i433j69i60l2j69i61.1845j0j7&sourceid=chrome&ie=UTF-8")
+
+
+    
+        # feature "news"
+        elif 'news' in command:
+            E.say("Opening times of India for latest news :")
+            E.runAndWait()
+            webbrowser.open("timesofindia.indiatimes.com")
+        
+        
+        # feature "toss"
+        elif 'toss' in command:
+            
+            t=["heads",'tails']
+            toss=random.choice(t)
+            print("its "+toss)
+            E.say("its " +toss)
+            E.runAndWait()
+        # feature "wake"
+        elif 'wake' in command:
+            E.say("always ready for you sir! ")
+            E.runAndWait()
+        
+        # feature "greeet"
+        elif 'greet' in command:
+            greet = random.choice(greets)
+            E.say(greet)
+            print(greet)
+        
+        
+        # feature "date"
+        elif 'date' in command :
+            E.say("The current date is: ")
+            E.runAndWait()
+            E.say(now.strftime("%D:%M:%Y"))
+            print(now.strftime("%D:%M:%Y"))
+            E.runAndWait()
+        # feature "covid-19"
+        elif 'covid' in command:
+            Hereitis()
+            print("option 1. covid-19 cases")
+            E.say("option 1. covid-19 cases")
+            E.runAndWait()
+            print("option 2. covid-19 precautions")
+            E.say("option 2. covid-19 precautions")
+            E.runAndWait()
+            print("option 3. covid-19 information ")
+            E.say("option 3. covid-19 information ")
+            E.runAndWait()
+            print("option 4. covid-19 vaccines")
+            E.say("option 4. covid-19 vaccines")
+            E.runAndWait()
+            print("option 5 . covid-19 vaccines in pune")
+            E.say("option 5 . covid-19 vaccines in pune")
+            E.runAndWait()
+            
+            covid=input("enter option number: ")
+            if covid == '1':
+                print("Here are covid-19 cases in the world")
+                E.say("Here are covid-19 cases in the world")
+                E.runAndWait()
+                webbrowser.open("https://www.worldometers.info/coronavirus/#countries")
+                
+            elif covid =='2':
+                print("here are the saftey pecaurions sir")
+                E.say("here are the saftey pecaurions sir")
+                E.runAndWait()
+                
+                print("Wear a mask.")
+                E.say("Wear a mask.")
+                E.runAndWait()
+                
+                print("Clean your hands.")
+                E.say("Clean your hands.")
+                E.runAndWait()
+                
+                print("Maintain safe distance.")
+                E.say("Maintain safe distance.")
+                E.runAndWait()
+                
+                print("Get vaccinated.")
+                E.say("Get vaccinated.")
+                E.runAndWait()
+                
+            elif covid=='3':
+                print("Here is some info about covid")
+                E.say("Here is some info about covid")
+                E.runAndWait()
+                
+                print("Coronavirus disease (COVID-19) is an infectious disease caused by a newly discovered coronavirus.Most people who fall sick with COVID-19 will experience mild to moderate symptoms and recover without special treatment.")
+                E.say("Coronavirus disease (COVID-19) is an infectious disease caused by a newly discovered coronavirus. Most people who fall sick with COVID-19 will experience mild to moderate symptoms and recover without special treatment.")
+                E.runAndWait()
+                
+            elif covid == '4':
+                print("here are the vaccines of covid till 20-5-2021")
+                E.say("here are the vaccines of covid till 20-5-2021")
+                E.runAndWait()
+                print("the vaccines are: Sputnik, Pfizer, covaxin and covisheild ")
+                E.say("the vaccines are: Sputnik, Pfizer, covaxin and covisheild ")
+                
+                
+        # feature "Quiz"
+            elif 'quiz' in command:
+                print("aranging a Quiz for you")
+                E.say("aranging a Quiz for you")
+                E.runAndWait()
+                time.sleep(1)
+                
+                print("question1")      
+                E.say()
+                E.runAndWait()
+                print("which is the largest bone in human body?")
+                E.say()
+                E.runAndWait()
+                print("A.scull: B.femur: C.sineal cod D.ribs")
+                E.say()
+                E.runAndWait()
+                ans=input("whats your answer:")
+                E.say()
+                E.runAndWait()
+                time.sleep(5)
+                if ans=="c" or "C":
+                    print("correct ans")
+                    E.say()
+                    E.runAndWait()
+                    score2=score2+1
+                else:
+                    print("wrong ans")
+                    E.say()
+                    E.runAndWait()
+                    score2=score2-1
+                # question 1 over
+                    
+                print("question2")  
+                E.say()
+                E.runAndWait()    
+                print("in which city was jesus born?")
+                E.say()
+                E.runAndWait()
+                print("A.medina: B.mecca: C.bethlehem D.istanbul")
+                E.say()
+                E.runAndWait()
+                ans = input("whats your answer: ").lower()
+                time.sleep(5)
+                if ans=="c" or "C":
+                    print("correct ans")
+                    E.say()
+                    E.runAndWait()
+                    score2=score2+1
+                else:
+                    print("wrong ans")
+                    E.say()
+                    E.runAndWait()
+                    score2=score2-1
+                # question 2 over
+                    
+                print("question3")  
+                E.say()
+                E.runAndWait()    
+                print("in which country is cape town located?")
+                E.say()
+                E.runAndWait()
+                print("A.south africa: B.mongolia: C.chaina D.USA")
+                E.say()
+                E.runAndWait()
+                ans=input("whats your answer:")
+                E.say()
+                E.runAndWait()
+                time.sleep(5)
+                if ans=="a" or "A":
+                    print("correct ans")
+                    E.say()
+                    E.runAndWait()
+                    score2=score2+1
+                else:
+                    print("wrong ans")
+                    E.say()
+                    E.runAndWait()
+                    score2=score2-1
+                # question 3 over
+                    
+                print("question4")     
+                E.say()
+                E.runAndWait() 
+                print("what food gets its name from the hugarian herdsmen who used to eat it??")
+                E.say()
+                E.runAndWait()
+                print("A.mussaka: B.souvalki: C.goulash D.tazatazaki")
+                E.say()
+                E.runAndWait()
+                ans=input("whats your answer:")
+                E.say()
+                E.runAndWait()
+                time.sleep(5)
+                if ans=="c" or "C":
+                    print("correct ans")
+                    E.say()
+                    E.runAndWait()
+                    score2=score2+1
+                else:
+                    print("wrong ans")
+                    score2=score2-1
+                # question 4 over
+                    
+                print("question 5")      
+                E.say()
+                E.runAndWait()
+                print("which holly wood flim director feld to france in 1978?")
+                E.say()
+                E.runAndWait()
+                print("A.steven pielberg: B.roman polanciki: C.martin scorese D.chirtopher nolan")
+                E.say()
+                E.runAndWait()
+                ans=input("whats your answer:")
+                E.say()
+                E.runAndWait()
+                time.sleep(5)
+                if ans=="B" or "b":
+                    print("correct ans")
+                    E.say()
+                    E.runAndWait()
+                    score2=score2+1
+                else:
+                    print("wrong ans")
+                    E.say()
+                    E.runAndWait()
+                    score2=score2-1
+                # question 5 over
+                    
+                print("question6") 
+                E.say()
+                E.runAndWait()     
+                print("which north afroican city has a name which merans'white house'in spanish?")
+                E.say()
+                E.runAndWait()
+                print("A.mellia: B.casabalanca: C.ceuta D.ogoobu")
+                E.say()
+                E.runAndWait()
+                ans=input("whats your answer:")
+                E.say()
+                E.runAndWait()
+                time.sleep(5)
+                if ans=="b" or "B":
+                    print("correct ans")
+                    E.say()
+                    E.runAndWait()
+                    score2=score2+1
+                else:
+                    print("wrong ans")
+                    E.say()
+                    E.runAndWait()
+                    score2=score2-1
+                # question 6 over
+                    
+                print("question7")  
+                E.say()
+                E.runAndWait()    
+                print("a geyser is what?")
+                E.say()
+                E.runAndWait()
+                print("A. hot spring: B.flight: C.water fall D.a helicopter")
+                E.say()
+                E.runAndWait()
+                ans=input("whats your answer:")
+                E.say()
+                E.runAndWait()
+                time.sleep(5)
+                if ans=="a" or "A":
+                    print("correct ans")
+                    E.say()
+                    E.runAndWait()
+                    score2=score2+1
+                else:
+                    print("wrong ans")
+                    E.say()
+                    E.runAndWait()
+                    score2=score2-1
+                # question 7 over
+                    
+                print("question8")    
+                E.say()
+                E.runAndWait()  
+                print("glaglow is a city in which european country")
+                E.say()
+                E.runAndWait()
+                print("A.england: B.ireland: C.iceland D.sctchland")
+                E.say()
+                E.runAndWait()
+                ans=input("whats your answer:")
+                E.say()
+                E.runAndWait()
+                time.sleep(5)
+                if ans=="d" or "D":
+                    print("correct ans")
+                    E.say()
+                    E.runAndWait()
+                    score2=score2+1
+                else:
+                    print("wrong ans")
+                    E.say()
+                    E.runAndWait()
+                    score2=score2-1
+                # question 8 over
+                    
+                print("question9")      
+                E.say()
+                E.runAndWait()
+                print("into which lifeless sea does the river jordon flow?")
+                E.say()
+                E.runAndWait()
+                print("A.dead sea: B.red sea: C.black sea D.caspian sea")
+                E.say()
+                E.runAndWait()
+                ans=input("whats your answer:")
+                E.say()
+                E.runAndWait()
+                time.sleep(5)
+                if ans=="a" or "A":
+                    print("correct ans")
+                    E.say()
+                    E.runAndWait()
+                    score2=score2+1
+                else:
+                    print("wrong ans")
+                    E.say()
+                    E.runAndWait()
+                    score2=score2-1
+                # question 9 over
+                    
+                print("question10") 
+                E.say()
+                E.runAndWait()     
+                print("ameerica is song about which of these?")
+                E.say()
+                E.runAndWait()
+                print("A.a death: B.a marriage: C.an alcohlic D.a road trip")
+                E.say()
+                E.runAndWait()
+                ans=input("whats your answer:")
+                E.say()
+                E.runAndWait()
+                time.sleep(5)
+                if ans=="d" or "D":
+                    print("correct ans")
+                    E.say()
+                    E.runAndWait()
+                    score2=score2+1
+                else:
+                    print("wrong ans")
+                    E.say()
+                    E.runAndWait()
+                    score2=score2-1
+                # question 10 over
+                    
+                
+                    
+                print("your score is"+str(score2))
+                if score2==10:
+                    print("you are inteligent")
+                    E.say()
+                    E.runAndWait()
+                elif score2>5:
+                    print("you are but litle studys will work")
+                    E.say()
+                    E.runAndWait()
+                elif score2<3:
+                    print("you need lots of studys")
+                    E.say()
+                    E.runAndWait()
+            elif 'vaccines' in command:
+                print("Showing vaccines for age 1 - 18")
+                E.say("Showing vaccines for age 1 - 18")
+                E.runAndWait()
+                
+                print("BCG, OPV 0, Hepatitis B -1 at birth")
+                E.say("BCG, OPV 0, Hepatitis B -1 at birth")
+                E.runAndWait()
+                
+                print("IPV-1, DTwP-1, Hepatitis B -2, Hib -1, Rotavirus 1, PCV 1 at the age of 6 weeks")
+                E.say("IPV-1, DTwP-1, Hepatitis B -2, Hib -1, Rotavirus 1, PCV 1 ata the age of 6 weeks")
+                E.runAndWait()
+                
+                print("DTwP-2, IPV 2, Hib -2, Rotavirus 2, PCV 2 at the age of 10 weeks")
+                E.say("DTwP-2, IPV 2, Hib -2, Rotavirus 2, PCV 2 at the age of 10 weeks")
+                E.runAndWait()
+                
+                print("DTwP-3 , IPV-3 , Hib -3, Rotavirus 3, PCV 3 at the age of 14 weeks")
+                E.say("DTwP-3 , IPV-3 , Hib -3, Rotavirus 3, PCV 3 at the age of 14 weeks")
+                E.runAndWait()
+                
+                print("OPV 1, Hep B 3 at the age of 6 months")
+                E.say("OPV 1, Hep B 3 at the age of 6 months")
+                E.runAndWait()
+                
+                print("OPV 2, MMR-1 at the age of 9 months")
+                E.say("OPV 2, MMR-1 at the age of 9 months")
+                E.runAndWait()
+                
+                print("Typhoid Conjugate Vaccine we can give it between 9 - 12 months")
+                E.say("Typhoid Conjugate Vaccine we can give it between 9 to 12 months")
+                E.runAndWait()
+                
+                print("Hep-A 1 at thhe age of 12 months")
+                E.say("Hep-A 1 at the age of 12 months")
+                E.runAndWait()
+                
+                print("MMR 2, Varicella 1, PCV Booster at the age of 15 months")
+                E.say("MMR 2, Varicella 1, PCV Booster at the age of 15 months")
+                E.runAndWait()
+                
+                print("DTwP  B 1 / DTaP booster -1, IPV B 1, Hib booster 1 can be given in the age between 16 - 18")
+                E.say("DTwP  B 1 / DTaP booster -1, IPV B 1, Hib booster 1 can be given in the age between 16 to 18")
+                E.runAndWait()
+                
+                print("Hep-A 2 at the age of 18 months")
+                E.say("Hep-A 2 at the age of 18 months")
+                E.runAndWait()
+                
+                print("	Booster of Typhoid Conjugate Vaccine at the age of 2 years")
+                E.say("Booster of Typhoid Conjugate Vaccine at the age of 2 years")
+                E.runAndWait()
+                
+                print("	DTwP  B 2 / DTaP booster -2, OPV 3, MMR 3, Varicella 2 it acn be given in between the age of 4 - 6")
+                E.say("DTwP  B 2 / DTaP booster -2, OPV 3, MMR 3, Varicella 2 it acn be given in between the age of 4 - 6")
+                E.runAndWait()
+                
+                print("	Tdap / Td, HPV (Only for females, three doses at 0, 1-2 and 6 months at the age between 10 to 12 years")
+                E.say("Tdap / Td, HPV (Only for females, three doses at 0, 1-2 and 6 months at the age between 10 to 12 years")
+                E.runAndWait()
+    
+            elif 'center' in command:
+                print("here are some vaccine centers in pune sir")
+                E.say("here are some vaccine centers in pune sir")
+                E.runAndWait()
+                webbrowser.open("https://www.google.com/search?q=some+vaccine+centres+for+babies+in+pune&safe=active&rlz=1C1CHZL_enIN903IN903&biw=1366&bih=625&ei=Az6mYPrQEoaz9QOoorjYDQ&oq=some+vaccine+centres+for+babies+in+pune&gs_lcp=Cgdnd3Mtd2l6EAM6BwgAEEcQsAM6BQgAEM0CUJFsWJhyYId2aAFwAngAgAHHAYgB9AeSAQMwLjaYAQCgAQGqAQdnd3Mtd2l6yAEIwAEB&sclient=gws-wiz&ved=0ahUKEwi63ve9itjwAhWGWX0KHSgRDtsQ4dUDCA4&uact=5")
+        
+        #Statements to Handle errors while receiving voice commands
+    except sr.UnknownValueError:
+        print("Sorry, Could not understand.")
+    except sr.RequestError as e:
+        print("Could not request results; {0}".format(e))
+    except KeyboardInterrupt:
+        pass    
+        E.say("Nice interacting with you .")
+        E.runAndWait()
+        print("Nice interacting with you!!")
